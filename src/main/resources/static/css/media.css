@@ -1,0 +1,307 @@
+@media screen and (max-width: 1485px){
+    .offers {
+        width: 65%;
+    }
+}
+@media screen and (max-width: 1373px){
+    .offers {
+        width: 72%;
+    }
+}
+@media screen and (max-width: 1250px){
+    header {
+        width: 90%;
+    }
+    .offers {
+        width: 82%;
+    }
+    .destination {
+        width: 55%;
+    }
+}
+@media screen and (max-width: 1100px){
+    header {
+        width: 95%;
+    }
+    header .trip_bx .search_bx {
+        width: 70%;
+    }
+    header .trip_bx .travel_bx .cards {
+        overflow: auto;
+    }
+    header .trip_bx .travel_bx .cards .card {
+        min-width: 220px;
+        margin-right: 10px;
+    }
+    .offers {
+        width: 95%;
+    }
+    .destination {
+        width: 60%;
+    }
+}
+@media screen and (max-width: 950px){
+    header .trip_bx .search_bx {
+        width: 85%;
+    }
+    header .trip_bx .search_bx .card {
+        margin-right: 8px;
+    }
+    .destination {
+        width: 75%;
+    }
+}
+@media screen and (max-width: 714px){
+    header {
+        width: 100%;
+    }
+    header nav ul {
+        position: absolute;
+        width: 100px;
+        height: auto;
+        flex-direction: column;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px gray;
+        justify-content: center;
+        top: -100%;
+        right: 30%;
+        z-index: 999999999999999;
+        padding: 10px 20px;
+        transition: .8s linear;
+    }
+    /* javascript class  */
+    header nav .ul_active {
+        top: 0;
+    }
+    header nav ul li {
+        padding: 8px 0px;
+        text-align: center;
+    }
+    header nav .bi-three-dots {
+        display: unset;
+    }
+    header .trip_bx .search_bx {
+        width: 93%;
+    }
+    .offers {
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 650px){
+    header .trip_bx .search_bx .card {
+        width: 140px;
+    }
+    header .trip_bx .search_bx input[type="button"] {
+        position: absolute;
+        right: 10px;
+        bottom: -43px;
+        font-size: 13px;
+    }
+    .offers {
+        width: 85%;
+        margin-top: 0px;
+    }
+    .destination {
+        width: 100%;
+        flex-direction: column-reverse;
+    }
+    .destination .des_bx, .img_bx {
+        position: relative;
+        width: 55%;
+        height: auto;
+        /* border: 1px solid #000; */
+    }
+    .destination .des_bx {
+        margin-top: 30px;
+    }
+}
+
+@media screen and (max-width: 541px){
+    header .content .cont_bx {
+        width: 85%;
+    }
+    header .content .cont_bx h1 {
+        width: 300px;
+        font-size: 22px;
+    }
+    header .content .cont_bx p {
+        width: 300px;
+        font-size: 12px;
+    }
+    header .trip_bx .search_bx {
+        width: 89%;
+    }
+    header .trip_bx .search_bx .card {
+        width: 110px;
+    }
+    header .trip_bx .search_bx .card input {
+        width: 100%;
+    }
+    .offers h1 {
+        font-size: 22px;
+    }
+    .offers p {
+        font-size: 14px;
+    }
+    .offers .cards {
+        justify-content: center;
+    }
+    .destination .des_bx, .img_bx {
+        width: 80%;
+    }
+    footer ul li h6 {
+        font-size: 8px;
+    }
+}
+
+@media screen and (max-width:411px){
+    .offers {
+        margin-top: 80px;
+    }
+    .destination .img_bx .msg:nth-child(2) {
+        left: 50%;
+    }
+    footer p {
+        width: 330px;
+        font-size: 12px;
+    }
+    footer ul li {
+        margin-right: 20px;
+    }
+}
+
+@media screen and (max-width:375px){
+    .offers {
+        margin-top: 15px;
+    }
+}
+/* Tablet View */
+@media screen and (max-width: 1024px) {
+    .offers, .destination {
+        width: 90%; /* Give content more room */
+    }
+}
+
+/* Mobile View */
+@media screen and (max-width: 714px) {
+    header nav ul {
+        /* Your existing absolute positioning for the mobile menu */
+        position: absolute;
+        top: -100%;
+        /* ... */
+    }
+    .destination {
+        flex-direction: column-reverse; /* Stack image and text vertically */
+    }
+}
+/* Optimization for Small Mobile Screens (350px - 411px) */
+@media screen and (max-width: 411px) {
+    header .trip_bx {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    header .trip_bx .search_bx {
+        width: 90%;
+        height: auto; /* Allow height to expand as cards stack */
+        flex-direction: column; /* Stack Location, Check-in, etc. */
+        padding: 20px;
+        position: relative;
+        top: 0;
+    }
+
+    header .trip_bx .search_bx .card {
+        width: 100%; /* Full width for each input field */
+        margin-bottom: 15px;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 5px;
+    }
+
+    header .trip_bx .search_bx .card input {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    header .trip_bx .search_bx input[type="button"] {
+        width: 100%; /* Make button full width */
+        position: static; /* Remove the absolute positioning from previous styles */
+        margin-top: 10px;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    /* Adjust the "Countries to Travel" section spacing */
+    header .trip_bx .travel_bx {
+        top: 20px;
+    }
+    
+    header .trip_bx .travel_bx h4 {
+        padding: 20px 0px 15px 5%;
+    }
+}
+@media screen and (max-width: 1100px) {
+    header .trip_bx .search_bx {
+        width: 85%; /* Expand slightly to prevent text clipping */
+        padding: 10px 15px;
+    }
+    header .trip_bx .search_bx .card {
+        width: 160px; /* Scale down individual cards */
+    }
+}
+@media screen and (max-width: 950px) {
+    header .trip_bx .search_bx {
+        width: 95%;
+        justify-content: space-around;
+    }
+    header .trip_bx .search_bx .card {
+        width: 140px;
+    }
+    header .trip_bx .search_bx .card h4 {
+        font-size: 13px; /* Smaller headers */
+    }
+}
+@media screen and (max-width: 650px) {
+    header .trip_bx .search_bx {
+        position: relative;
+        top: 20px;
+        width: 90%;
+        height: auto; /* Allow box to grow vertically */
+        flex-direction: column; /* The magic fix for mobile */
+        padding: 20px;
+        gap: 15px; /* Add space between inputs */
+    }
+
+    header .trip_bx .search_bx .card {
+        width: 100%; /* Full width cards */
+        height: 60px;
+        border-bottom: 1px solid #eee;
+    }
+
+    header .trip_bx .search_bx input[type="button"] {
+        width: 100%; /* Big button for easy tapping */
+        margin-top: 10px;
+        position: static; /* Prevent button from floating outside */
+    }
+
+    /* Adjust the "Countries to travel" section to move down */
+    header .trip_bx .travel_bx {
+        top: 40px; 
+    }
+}
+
+
+header .trip_bx .search_bx input[type="button"]:hover {
+   background: #333; /* Dark gray on hover */
+   box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+}
+@media screen and (max-width: 650px) {
+    header .trip_bx .search_bx input[type="button"] {
+        width: 100%; /* Spans full width on mobile */
+        margin-top: 15px;
+        position: static; /* Overrides the absolute positioning from desktop */
+        height: 50px; /* Larger tap target for fingers */
+        border-radius: 10px; /* Slightly squarer to match mobile input fields */
+    }
+}

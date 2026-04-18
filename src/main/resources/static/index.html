@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Site</title>
+ 
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+<header>
+    <nav>
+       <h4>Trip.Next</h4>
+            <ul id="menu_bx">
+                <li><a href="#">Discover</a></li>
+                <li><a href="#">Coummunity</a></li>
+                <li><a href="special-offers.html">Special Deals</a></li>
+                <li><a href="#">About US</a></li>
+                <li><a href="my-bookings.html">My Bookings</a></li>
+                <li class="li_btn"><a href="login.html" id="loginBtn">Login</a></li>
+                <li class="li_btn"><a href="register.html" id="signupBtn">Register</a></li>
+                
+            
+            </ul>
+            <i class="bi bi-three-dots"></i>
+    </nav>
+
+    <div class="content">
+        <div class="cont_bx">
+            <h1>The right destination for you and your family</h1>
+            <p>Creative taglines have the capability of capturing the attention of potential customer.</p>
+            <button type="button">Start your search</button>
+        </div>
+
+        <div class="trip_bx">
+            <div class="search_bx">
+
+                <div class="card">
+                    <h4>Location <i class="bi bi-caret-down-fill"></i></h4>
+                    <input type="text" id="destination" placeholder="Enter your destination">
+                </div>
+
+                <div class="card">
+                    <h4>Check-in <i class="bi bi-caret-down-fill"></i></h4>
+                    <input type="date" id="checkin">
+                </div>
+
+                <div class="card">
+                    <h4>Check-out <i class="bi bi-caret-down-fill"></i></h4>
+                    <input type="date" id="checkout">
+                </div>
+
+                <div class="card">
+                    <h4>People <i class="bi bi-caret-down-fill"></i></h4>
+                    <input type="number" id="people" placeholder="How many People?" min="1">
+                </div>
+
+                <input type="button" id="submit" value="Explore Now">
+            </div>
+
+            <script>
+                document.getElementById('submit').addEventListener('click', function () {
+
+                    const destination = document.getElementById('destination').value.trim();
+                    const checkin = document.getElementById('checkin').value;
+                    const checkout = document.getElementById('checkout').value;
+                    const people = document.getElementById('people').value;
+
+                    if (!destination || !checkin || !checkout || !people) {
+                        alert('Please fill all the fields');
+                        return;
+                    }
+
+                    // Redirect to hotel booking page with search parameters
+                    window.location.href =
+                        `hotel-booking.html?destination=${encodeURIComponent(destination)}&checkin=${checkin}&checkout=${checkout}&people=${people}`;
+                });
+            </script>
+
+    <script>
+        // Demo booking modal (frontend-only, no backend changes)
+        function showDemoModal(data) {
+            let modal = document.getElementById('demoModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'demoModal';
+                modal.style.position = 'fixed';
+                modal.style.inset = '0';
+                modal.style.background = 'rgba(0,0,0,0.45)';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                modal.style.zIndex = '9999';
+                modal.innerHTML = `
+                    <div style="background:#fff;padding:20px;border-radius:10px;max-width:520px;width:90%;box-shadow:0 12px 30px rgba(0,0,0,0.2);">
+                        <h3 id="dm-title">Demo booking</h3>
+                        <p id="dm-desc">Preview your demo booking details below.</p>
+                        <div style="margin:12px 0;padding:12px;border-radius:8px;background:#f8f9fa">
+                            <div style="display:flex;justify-content:space-between"><strong>Destination</strong><span id="dm-destination"></span></div>
+                            <div style="display:flex;justify-content:space-between"><strong>Guests</strong><span id="dm-guests">2</span></div>
+                            <div style="display:flex;justify-content:space-between"><strong>Total</strong><span id="dm-price"></span></div>
+                        </div>
+                        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+                            <button id="dm-close" style="padding:8px 14px;border-radius:8px;border:1px solid #ccc;background:#fff;">Close</button>
+                            <button id="dm-confirm" style="padding:8px 14px;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none">Confirm Demo</button>
+                        </div>
+                    </div>`;
+                document.body.appendChild(modal);
+
+                document.getElementById('dm-close').addEventListener('click', ()=>{ modal.remove(); });
+                document.getElementById('dm-confirm').addEventListener('click', ()=>{
+                    document.getElementById('dm-desc').textContent = 'Demo booking confirmed — this is a frontend simulation.';
+                    document.getElementById('dm-confirm').disabled = true;
+                    document.getElementById('dm-confirm').textContent = 'Done';
+                });
+            }
+
+            document.getElementById('dm-destination').textContent = data.destination || 'Demo';
+            document.getElementById('dm-price').textContent = '$' + (data.price || '0');
+        }
+
+        document.querySelectorAll('.demo-btn').forEach(b=>{
+            b.addEventListener('click', (e)=>{
+                const dest = e.target.getAttribute('data-destination');
+                const price = e.target.getAttribute('data-price');
+                showDemoModal({destination: dest, price: price});
+            });
+        });
+    </script>
+
+            <div class="travel_bx">
+                <h4>Countries to travel</h4>
+                <div class="cards">
+
+                    <div class="card">
+                        <h3>INDIA <img src="assets/icon/india.png"></h3>
+                        <img src="assets/img/Mumbai-India-at-night.jpg">
+                        <div class="btn_city">
+                            <a href="#">Read Now</a>
+                            <h5>Mumbai Central <br> <span>$460</span></h5>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>UNITED STATE <img src="assets/icon/united-states.png"></h3>
+                        <img src="assets/img/newyork.webp">
+                        <div class="btn_city">
+                            <a href="#">Read Now</a>
+                            <h5>New York <br> <span>$870</span></h5>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>RUSSIA <img src="assets/icon/russia.png"></h3>
+                        <img src="assets/img/sanpitersburg.jpg">
+                        <div class="btn_city">
+                            <a href="#">Read Now</a>
+                            <h5>Sanpitersburg <br> <span>$660</span></h5>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>SPAIN <img src="assets/icon/spain.png"></h3>
+                        <img src="assets/img/barcelona.jpg">
+                        <div class="btn_city">
+                            <a href="#">Read Now</a>
+                            <h5>Barcelona <br> <span>$730</span></h5>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Demo Template Section -->
+                <div class="demo_section" style="margin-top:28px;">
+                    <h4>Try Our Demo</h4>
+                    <div class="cards">
+                        <div class="card">
+                            <h3>Demo — New York</h3>
+                            <img src="assets/img/newyork.webp" alt="New York">
+                            <div class="btn_city">
+                                <button class="demo-btn" data-destination="New York" data-price="870">Try Demo Booking</button>
+                                <h5>Preview <br> <span>$870</span></h5>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Demo — Mumbai</h3>
+                            <img src="assets/img/Mumbai-India-at-night.jpg" alt="Mumbai">
+                            <div class="btn_city">
+                                <button class="demo-btn" data-destination="Mumbai" data-price="460">Try Demo Booking</button>
+                                <h5>Preview <br> <span>$460</span></h5>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3>Demo — Barcelona</h3>
+                            <img src="assets/img/barcelona.jpg" alt="Barcelona">
+                            <div class="btn_city">
+                                <button class="demo-btn" data-destination="Barcelona" data-price="730">Try Demo Booking</button>
+                                <h5>Preview <br> <span>$730</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="offers">
+        <h1>Best tour Package offers for You</h1>
+        <p>choose your next destination</p>
+        <div class="cards">
+            <div class="card">
+                <h3>Lotus - Delhi</h3>
+                <div class="img_text">
+                    <img src="assets/img/lotus_temple.jpg" alt="">
+                    <h4>Included: Air ticket, Hotel, Breakfast, Tours, Airport Transfer</h4>
+                </div>
+                <div class="cont_bx">
+                    <div class="price">
+                        <div class="heart_chat">
+                            <i class="bi bi-heart-fill"><span>86415</span></i>
+                            <i class="bi bi-chat-fill"><span>4586</span></i>
+                        </div>
+                        <div class="info_price">
+                            <a href="#">More Info</a>
+                            <h4>$2648</h4>
+                        </div>
+                    </div>
+                    <div class="dayes">5 Days<br>India</div>
+                </div>
+            </div>
+
+             <div class="card">
+                <h3>Burj Khalifa-UAE</h3>
+                <div class="img_text">
+                    <img src="assets/img/burjkhlifa.jpg" alt="">
+                    <h4>Included: Air ticket, Hotel, Breakfast, Tours, Airport Transfer</h4>
+                </div>
+                <div class="cont_bx">
+                    <div class="price">
+                        <div class="heart_chat">
+                            <i class="bi bi-heart-fill"><span>96415</span></i>
+                            <i class="bi bi-chat-fill"><span>6586</span></i>
+                        </div>
+                        <div class="info_price">
+                            <a href="#">More Info</a>
+                            <h4>$2948</h4>
+                        </div>
+                    </div>
+                    <div class="dayes">5 Days<br>India</div>
+                </div>
+            </div>
+
+             <div class="card">
+                <h3>Piramids-Egypt</h3>
+                <div class="img_text">
+                    <img src="assets/img/piramids.jpg" alt="">
+                    <h4>Included: Air ticket, Hotel, Breakfast, Tours, Airport Transfer</h4>
+                </div>
+                <div class="cont_bx">
+                    <div class="price">
+                        <div class="heart_chat">
+                            <i class="bi bi-heart-fill"><span>76415</span></i>
+                            <i class="bi bi-chat-fill"><span>5586</span></i>
+                        </div>
+                        <div class="info_price">
+                            <a href="#">More Info</a>
+                            <h4>$2748</h4>
+                        </div>
+                    </div>
+                    <div class="dayes">5 Days<br>India</div>
+                </div>
+            </div>
+
+             <div class="card">
+                <h3>Mountain-Vietnam</h3>
+                <div class="img_text">
+                    <img src="assets/img/mountain.jpg" alt="">
+                    <h4>Included: Air ticket, Hotel, Breakfast, Tours, Airport Transfer</h4>
+                </div>
+                <div class="cont_bx">
+                    <div class="price">
+                        <div class="heart_chat">
+                            <i class="bi bi-heart-fill"><span>96415</span></i>
+                            <i class="bi bi-chat-fill"><span>6586</span></i>
+                        </div>
+                        <div class="info_price">
+                            <a href="#">More Info</a>
+                            <h4>$2548</h4>
+                        </div>
+                    </div>
+                    <div class="dayes">5 Days<br>India</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Paris-France</h3>
+                <div class="img_text">
+                    <img src="assets/img/parice.avif" alt="">
+                    <h4>Included: Air ticket, Hotel, Breakfast, Tours, Airport Transfer</h4>
+                </div>
+                <div class="cont_bx">
+                    <div class="price">
+                        <div class="heart_chat">
+                            <i class="bi bi-heart-fill"><span>96415</span></i>
+                            <i class="bi bi-chat-fill"><span>6586</span></i>
+                        </div>
+                        <div class="info_price">
+                            <a href="#">More Info</a>
+                            <h4>$2548</h4>
+                        </div>
+                    </div>
+                    <div class="dayes">5 Days<br>India</div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <h3>Rome-dItaly</h3>
+                <div class="img_text">
+                    <img src="assets/img/Rome.webp" alt="">
+                    <h4>Included: Air ticket, Hotel, Breakfast, Tours, Airport Transfer</h4>
+                </div>
+                <div class="cont_bx">
+                    <div class="price">
+                        <div class="heart_chat">
+                            <i class="bi bi-heart-fill"><span>96415</span></i>
+                            <i class="bi bi-chat-fill"><span>6586</span></i>
+                        </div>
+                        <div class="info_price">
+                            <a href="#">More Info</a>
+                            <h4>$2548</h4>
+                        </div>
+                    </div>
+                    <div class="dayes">5 Days<br>India</div>
+                </div>
+            </div>
+
+
+
+            </div>
+    </section>
+
+    <section class="destination">
+        <div class="des_bx">
+            <h4>Our Destination</h4>
+            <p>choose your next Destination</p>
+            <ul>
+                <li>India</li>
+                <li>Dubai</li>
+                <li>USA</li>
+                <li>Vietnam</li>
+                <li>Russia</li>
+                <li>Brazil</li>
+            </ul>
+            <h6>Included: Air ticket, Hotel, Breakfast, Tours, Airport transfer</h6>
+            <button class="more_info_btn">MORE INFO</button>
+        </div>
+        <div class="img_bx">
+            <img src="assets/img/Main_plan.png" alt="">
+            <div class="msg">
+                <img src="assets/icon/india.png" alt="">
+                <div class="cont">
+                    <h4>India</h4>
+                    <div class="icons">
+                        <i class="bi bi-heart-fill"><span>86415</span></i>
+                        <i class="bi bi-chat-fill"><span>4586</span></i>
+                    </div>
+                </div>
+            </div>
+            <div class="msg msg2">
+                 <img src="assets/icon/united-states.png" alt="">
+                <div class="cont">
+                    <h4>United State</h4>
+                    <div class="icons">
+                        <i class="bi bi-heart-fill"><span>86415</span></i>
+                        <i class="bi bi-chat-fill"><span>4586</span></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+ <footer>
+        <h2>Subscribe & <br> get special discount</h2>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt neque animi .</p>
+        <div class="input">
+            <input type="text" placeholder="Enter your Email Address">
+            <button>Subscribe</button>
+        </div>
+        <ul>
+            <li>7823 <br> <h6>Years Serving the travel Industry</h6></li>
+            <li>6374 <br><h6>Global <br> Patnership</h6> </li>
+            <li>1496 <br> <h6>Industry Awards since 2022</h6></li>
+            <li>5658 <br> <h6>Subscribe</h6></li>
+        </ul>
+    </footer>
+<footer>
+    <p>© 2026 Travel Site. All rights reserved.</p>
+</footer>
+
+<!-- Interactive Animations Script -->
+<script>
+// Smooth scroll reveal animation on scroll
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, observerOptions);
+
+// Observe elements for scroll animations
+document.addEventListener('DOMContentLoaded', () => {
+    const revealElements = document.querySelectorAll('.offers .cards .card, .destination .img_bx img, .destination .msg');
+    revealElements.forEach(el => {
+        el.classList.add('scroll-reveal');
+        observer.observe(el);
+    });
+});
+
+// Parallax effect for destination section
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector('.destination .img_bx img');
+    if (parallax) {
+        const speed = 0.5;
+        parallax.style.transform = `translateY(${scrolled * speed}px)`;
+    }
+});
+
+// Interactive button effects
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-2px)';
+    });
+    
+    button.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
+
+// Card tilt effect on mouse move
+document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    });
+});
+
+// Floating animation for message bubbles
+const messages = document.querySelectorAll('.destination .msg');
+messages.forEach((msg, index) => {
+    msg.style.animation = `float 3s ease-in-out ${index * 0.5}s infinite`;
+});
+
+// Typing effect for hero text
+function typeWriter(element, text, speed = 50) {
+    let i = 0;
+    element.innerHTML = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    
+    type();
+}
+
+// Apply typing effect to hero heading
+document.addEventListener('DOMContentLoaded', () => {
+    const heroHeading = document.querySelector('.cont_bx h1');
+    if (heroHeading) {
+        const text = heroHeading.textContent;
+        typeWriter(heroHeading, text, 50);
+    }
+});
+
+// Particle effect for background
+function createParticle() {
+    const particle = document.createElement('div');
+    particle.style.cssText = `
+        position: fixed;
+        pointer-events: none;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        z-index: 9999;
+        animation: particleFloat 4s linear;
+    `;
+    
+    particle.style.left = Math.random() * window.innerWidth + 'px';
+    particle.style.top = window.innerHeight + 'px';
+    
+    document.body.appendChild(particle);
+    
+    setTimeout(() => {
+        particle.remove();
+    }, 4000);
+}
+
+// Create particles periodically
+setInterval(createParticle, 500);
+
+// Add particle animation to CSS
+const particleStyle = document.createElement('style');
+particleStyle.textContent = `
+    @keyframes particleFloat {
+        to {
+            transform: translateY(-100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(particleStyle);
+
+// Enhanced search form interactions
+document.getElementById('submit').addEventListener('click', function() {
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        this.style.transform = 'scale(1)';
+    }, 100);
+});
+
+// Add ripple effect to buttons
+function createRipple(event) {
+    const button = event.currentTarget;
+    const ripple = document.createElement('span');
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+    
+    ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        left: ${x}px;
+        top: ${y}px;
+        width: ${size}px;
+        height: ${size}px;
+    `;
+    
+    button.appendChild(ripple);
+    
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+}
+
+// Add ripple styles
+const rippleStyle = document.createElement('style');
+rippleStyle.textContent = `
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    button {
+        position: relative;
+        overflow: hidden;
+    }
+`;
+document.head.appendChild(rippleStyle);
+
+// Apply ripple effect to all buttons
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', createRipple);
+});
+</script>
+
+</body>
+</html>

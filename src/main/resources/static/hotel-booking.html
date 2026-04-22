@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking - Trip.Next</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        /* Hotel Booking Page Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('assets/img/background1.png') center center/cover no-repeat fixed;
+            min-height: 100vh;
+        }
+
+        .hotel-booking-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* .booking-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        } */
+
+        .booking-header .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .booking-header .logo {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .booking-header .back-btn {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 16px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .booking-header .back-btn:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .hotel-main {
+            flex: 1;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hotel-search-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .hotel-search-card h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 2em;
+        }
+
+        .hotel-search-card p {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-summary {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-left: 4px solid #667eea;
+        }
+
+        .search-summary h3 {
+            color: #667eea;
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        .search-summary p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .hotels-list {
+            margin-top: 30px;
+        }
+
+        .hotel-item {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .hotel-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .hotel-image {
+            width: 200px;
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .hotel-info {
+            flex: 1;
+        }
+
+        .hotel-info h3 {
+            color: #333;
+            margin: 0 0 10px 0;
+            font-size: 1.3em;
+        }
+
+        .hotel-rating {
+            color: #ffa500;
+            margin-bottom: 10px;
+        }
+
+        .hotel-location {
+            color: #666;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hotel-amenities {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .amenity {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .hotel-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .price-info {
+            text-align: right;
+        }
+
+        .price-info .price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .price-info .per-night {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .book-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hotel-item {
+                flex-direction: column;
+            }
+
+            .hotel-image {
+                width: 100%;
+                height: 200px;
+            }
+
+            .hotel-price {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .book-btn {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hotel-booking-container">
+        <!-- Header -->
+        <header class="booking-header">
+            <nav class="nav">
+                <a href="index.html" class="logo">Trip.Next</a>
+                <a href="index.html" class="back-btn">
+                    <i class="bi bi-arrow-left"></i> Back to Search
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="hotel-main">
+            <div class="hotel-search-card">
+                <h1>Available Hotels</h1>
+                <p>Find the perfect hotel for your stay</p>
+                
+                <!-- Search Summary -->
+                <div class="search-summary" id="searchSummary">
+                    <h3>Your Search Details</h3>
+                    <div id="searchDetails"></div>
+                </div>
+
+                <!-- Message Area -->
+                <div id="messageArea"></div>
+
+                <!-- Hotels List -->
+                <div class="hotels-list" id="hotelsList">
+                    <!-- Hotels will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mock Hotel Booking API
+        class HotelBookingAPI {
+            constructor() {
+                this.hotels = [
+                    {
+                        id: 1,
+                        name: "Grand Plaza Hotel",
+                        rating: 4.5,
+                        location: "Downtown City Center",
+                        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400",
+                        amenities: ["WiFi", "Pool", "Spa", "Restaurant", "Gym"],
+                        pricePerNight: 150,
+                        available: true
+                    },
+                    {
+                        id: 2,
+                        name: "Sunset Resort & Spa",
+                        rating: 4.8,
+                        location: "Beachfront Area",
+                        image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400",
+                        amenities: ["WiFi", "Beach Access", "Spa", "Bar", "Restaurant"],
+                        pricePerNight: 280,
+                        available: true
+                    },
+                    {
+                        id: 3,
+                        name: "Business Inn Express",
+                        rating: 4.2,
+                        location: "Near Airport",
+                        image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400",
+                        amenities: ["WiFi", "Business Center", "Gym", "Free Breakfast"],
+                        pricePerNight: 95,
+                        available: true
+                    },
+                    {
+                        id: 4,
+                        name: "Mountain View Lodge",
+                        rating: 4.6,
+                        location: "Mountain Resort",
+                        image: "https://images.unsplash.com/photo-1571003123894-1faba9626e44?w=400",
+                        amenities: ["WiFi", "Ski Access", "Restaurant", "Fireplace", "Spa"],
+                        pricePerNight: 320,
+                        available: true
+                    },
+                    {
+                        id: 5,
+                        name: "City Center Boutique",
+                        rating: 4.3,
+                        location: "Historic District",
+                        image: "https://images.unsplash.com/photo-1520250498154-5079466d8af0?w=400",
+                        amenities: ["WiFi", "Concierge", "Restaurant", "Bar"],
+                        pricePerNight: 175,
+                        available: true
+                    }
+                ];
+            }
+
+            async searchHotels(destination, checkin, checkout, guests) {
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Filter hotels based on availability (mock logic)
+                return this.hotels.filter(hotel => {
+                    // Simple availability check based on guests
+                    return hotel.available && this.canAccommodate(hotel, guests);
+                });
+            }
+
+            async bookHotel(hotelId, bookingDetails) {
+                // Simulate booking API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Mock booking success
+                const booking = {
+                    id: 'BK' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                    hotelId: hotelId,
+                    ...bookingDetails,
+                    status: 'confirmed',
+                    timestamp: new Date().toISOString()
+                };
+                
+                return { success: true, booking: booking };
+            }
+
+            canAccommodate(hotel, guests) {
+                // Mock capacity check
+                return guests <= 4; // Assume all hotels can accommodate up to 4 guests
+            }
+        }
+
+        // Initialize API
+        const hotelAPI = new HotelBookingAPI();
+
+        // Get URL parameters
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                destination: params.get('destination') || 'Unknown Destination',
+                checkin: params.get('checkin') || '',
+                checkout: params.get('checkout') || '',
+                guests: params.get('people') || '1'
+            };
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            if (!dateString) return 'Not specified';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        // Calculate nights
+        function calculateNights(checkin, checkout) {
+            if (!checkin || !checkout) return 1;
+            const start = new Date(checkin);
+            const end = new Date(checkout);
+            const diffTime = Math.abs(end - start);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays || 1;
+        }
+
+        // Display search summary
+        function displaySearchSummary() {
+            const params = getUrlParams();
+            const nights = calculateNights(params.checkin, params.checkout);
+            const searchDetails = document.getElementById('searchDetails');
+            searchDetails.innerHTML = '';
+
+            const rows = [
+                `Destination: ${params.destination}`,
+                `Check-in: ${formatDate(params.checkin)}`,
+                `Check-out: ${formatDate(params.checkout)}`,
+                `Guests: ${params.guests}`,
+                `Nights: ${nights}`
+            ];
+
+            rows.forEach((row) => {
+                const p = document.createElement('p');
+                p.textContent = row;
+                searchDetails.appendChild(p);
+            });
+        }
+
+        // Display hotels
+        function displayHotels(hotels) {
+            const hotelsList = document.getElementById('hotelsList');
+            const params = getUrlParams();
+            const nights = calculateNights(params.checkin, params.checkout);
+            
+            if (hotels.length === 0) {
+                hotelsList.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <i class="bi bi-house-slash" style="font-size: 48px; margin-bottom: 20px; display: block;"></i>
+                        <h3>No hotels found</h3>
+                        <p>Try adjusting your search criteria</p>
+                    </div>
+                `;
+                return;
+            }
+
+            hotelsList.innerHTML = hotels.map((hotel, index) => `
+                <div class="hotel-item" style="animation-delay: ${index * 0.1}s">
+                    <img src="${hotel.image}" alt="${hotel.name}" class="hotel-image">
+                    <div class="hotel-info">
+                        <h3>${hotel.name}</h3>
+                        <div class="hotel-rating">
+                            ${'★'.repeat(Math.floor(hotel.rating))} ${hotel.rating}
+                        </div>
+                        <div class="hotel-location">
+                            <i class="bi bi-geo-alt-fill"></i> ${hotel.location}
+                        </div>
+                        <div class="hotel-amenities">
+                            ${hotel.amenities.map(amenity => `<span class="amenity">${amenity}</span>`).join('')}
+                        </div>
+                        <div class="hotel-price">
+                            <div class="price-info">
+                                <div class="price">$${hotel.pricePerNight * nights}</div>
+                                <div class="per-night">$${hotel.pricePerNight}/night × ${nights} nights</div>
+                            </div>
+                            <button class="book-btn" onclick="bookHotel(event, ${hotel.id}, '${hotel.name}', ${hotel.pricePerNight})">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Book hotel
+        async function bookHotel(event, hotelId, hotelName, pricePerNight) {
+            const params = getUrlParams();
+            const nights = calculateNights(params.checkin, params.checkout);
+            
+            // Show loading state
+            event.target.innerHTML = '<span class="loading-spinner"></span> Booking...';
+            event.target.disabled = true;
+            
+            try {
+                const bookingDetails = {
+                    hotelName: hotelName,
+                    destination: params.destination,
+                    checkin: params.checkin,
+                    checkout: params.checkout,
+                    guests: params.guests,
+                    nights: nights,
+                    totalPrice: pricePerNight * nights
+                };
+                
+                const result = await hotelAPI.bookHotel(hotelId, bookingDetails);
+                
+                if (result.success) {
+                    showMessage(`Booking confirmed! Your booking ID is ${result.booking.id}`, 'success');
+                    
+                    // Redirect to confirmation page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = `hotel-booking-confirmation.html?bookingId=${result.booking.id}&type=hotel`;
+                    }, 2000);
+                } else {
+                    showMessage('Booking failed. Please try again.', 'error');
+                }
+            } catch (error) {
+                showMessage('An error occurred. Please try again.', 'error');
+            } finally {
+                // Reset button
+                event.target.innerHTML = 'Book Now';
+                event.target.disabled = false;
+            }
+        }
+
+        // Show message
+        function showMessage(message, type) {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML = `
+                <div class="message ${type}">
+                    <i class="bi ${type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'}"></i>
+                    ${message}
+                </div>
+            `;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                messageArea.innerHTML = '';
+            }, 5000);
+            
+            // Scroll to message
+            messageArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Load hotels
+        async function loadHotels() {
+            const params = getUrlParams();
+            
+            try {
+                const hotels = await hotelAPI.searchHotels(
+                    params.destination,
+                    params.checkin,
+                    params.checkout,
+                    params.guests
+                );
+                
+                displayHotels(hotels);
+            } catch (error) {
+                showMessage('Failed to load hotels. Please try again.', 'error');
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            displaySearchSummary();
+            loadHotels();
+        });
+    </script>
+</body>
+</html>

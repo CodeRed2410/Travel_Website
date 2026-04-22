@@ -12,7 +12,6 @@ import com.example.travel.repository.BookingRepository;
 
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 public class BookingController {
@@ -90,22 +89,6 @@ public class BookingController {
         }
     }
     
-    @GetMapping("/my-bookings.html")
-    public String myBookings(
-                           HttpSession session,
-                           org.springframework.ui.Model model) {
-        String email = (String) session.getAttribute("userEmail");
-        if (email == null || email.trim().isEmpty()) {
-            return "redirect:/register.html#login";
-        }
-        
-        List<Booking> bookings = bookingRepository.findByUserEmail(email);
-        model.addAttribute("bookings", bookings);
-        model.addAttribute("userEmail", email);
-        
-        return "my-bookings";
-    }
-
     @GetMapping("/api/bookings/my")
     public String myBookingsApi(HttpSession session) {
         String email = (String) session.getAttribute("userEmail");

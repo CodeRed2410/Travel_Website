@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Trip.Next</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        /* ensure page fills viewport and prevent horizontal scroll */
+        html, body { height: 100%; margin: 0; overflow-x: hidden; }
+
+        /* background image will sit under the overlay */
+        .bg-image{
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        body::after{
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(246, 248, 255, 0.059);
+            z-index: -1;
+        }
+        .auth_container {
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 200px; /* keep visual offset but avoid extra document height */
+            align-items: center;
+            min-height: 100vh; /* prevent container from exceeding viewport */
+            background: transparent;
+        }
+        .auth_card {
+            background: #fff;
+            padding: 24px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 360px;
+            box-sizing: border-box;
+        }
+        .auth_header {
+            display:flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .auth_tab {
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #444;
+        }
+        .auth_tab.active {
+            background: #000;
+            color: #fff;
+        }
+        .auth_card h2 { text-align: center; margin: 6px 0 14px 0; font-size:18px; font-family:'Segoe UI'; }
+        .auth_card input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .auth_card button {
+            width: 100%;
+            padding: 12px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .auth_small { text-align:center; font-size:12px; margin-top:12px; }
+        .forms { position:relative; min-height:220px }
+        .form-panel { position:absolute; left:0; right:0; top:0; transition:opacity .25s, transform .25s; }
+        .form-panel.hidden { opacity:0; transform: translateY(10px); pointer-events:none }
+        .form-panel.visible { opacity:1; transform: translateY(0); pointer-events:auto }
+        a.link-muted { color: #0066cc; text-decoration: none }
+
+        /* Background drift to give floating travel feel */
+        @keyframes bgDrift {
+            0% { background-position: 40px center; }
+            50% { background-position: 120px center; }
+            100% { background-position: 40px center; }
+        }
+
+        /* Right-side welcome note (wipe-in) */
+        .floating_welcome{
+            position: fixed;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.98);
+            padding: 16px 18px;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+            max-width: 300px;
+            text-align: center;
+            font-weight: 700;
+            color: #111;
+            opacity: 0;
+            animation: wipeIn 0.8s cubic-bezier(.2,.9,.3,1) 0.2s forwards;
+            z-index: 5;
+        }
+
+        @keyframes wipeIn {
+            0% { transform: translateY(-50%) translateX(30px); opacity: 0; }
+            100% { transform: translateY(-50%) translateX(0); opacity: 1; }
+        }
+
+        /* Floating plane that crosses the viewport */
+        .floating_plane{
+            position: fixed;
+            left: -220px;
+            top: 18%;
+            width: 140px;
+            height: 80px;
+            background-image: url('assets/img/main_plane.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 3;
+            opacity: 0.95;
+            pointer-events: none;
+            animation: flyAcross 14s linear infinite;
+        }
+
+        @keyframes flyAcross {
+            0% { left: -260px; transform: translateY(0) rotate(-6deg); }
+            50% { left: 110%; transform: translateY(-28px) rotate(6deg); }
+            100% { left: -260px; transform: translateY(0) rotate(-6deg); }
+        }
+
+        @media (max-width: 880px) {
+            .floating_welcome, .floating_plane { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <img src="assets/img/boat.jpg" alt="Boat Background" class="bg-image">
+    <div class="auth_container">
+        <div class="auth_card">
+           <h2>Welcome to Trip.Next</h2>
+            <div class="auth_header">
+                <div id="tabRegister" class="auth_tab active">Register</div>
+                <div id="tabLogin" class="auth_tab">Login</div>
+            </div>
+            
+
+            <div class="forms">
+                <p id="authMessage" class="auth_small" style="display:none; margin-bottom:10px;"></p>
+                <div id="panelRegister" class="form-panel visible">
+                    <form action="/api/register" method="POST">
+                        <input type="text" name="username" placeholder="Username" required>
+                        <input type="email" name="email" placeholder="Email Address" required>
+                        <input type="password" name="password" placeholder="Create Password" required>
+                        <button type="submit">Create Account</button>
+                    </form>
+                    <p class="auth_small">Already have an account? <span id="linkToLogin" style="color:#0066cc; cursor:pointer;">Login</span></p>
+                </div>
+
+                <div id="panelLogin" class="form-panel hidden">
+                    <form action="/api/login" method="POST">
+                        <input type="email" name="email" placeholder="Email Address" required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <button type="submit">Sign In</button>
+                    </form>
+                    <p class="auth_small"><a class="link-muted" href="#">Forgot password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabRegister = document.getElementById('tabRegister');
+        const tabLogin = document.getElementById('tabLogin');
+        const panelRegister = document.getElementById('panelRegister');
+        const panelLogin = document.getElementById('panelLogin');
+        const linkToLogin = document.getElementById('linkToLogin');
+
+        function showRegister() {
+            tabRegister.classList.add('active');
+            tabLogin.classList.remove('active');
+            panelRegister.classList.remove('hidden');
+            panelRegister.classList.add('visible');
+            panelLogin.classList.remove('visible');
+            panelLogin.classList.add('hidden');
+        }
+
+        function showLogin() {
+            tabLogin.classList.add('active');
+            tabRegister.classList.remove('active');
+            panelLogin.classList.remove('hidden');
+            panelLogin.classList.add('visible');
+            panelRegister.classList.remove('visible');
+            panelRegister.classList.add('hidden');
+        }
+
+        tabRegister.addEventListener('click', showRegister);
+        tabLogin.addEventListener('click', showLogin);
+        linkToLogin.addEventListener('click', showLogin);
+
+        // Open appropriate tab when arriving from other pages (index.html links)
+        (function(){
+            function openFromHash(){
+                const h = (location.hash || '').toLowerCase();
+                if(h === '#login') showLogin();
+                else showRegister();
+            }
+            // run after tiny delay to ensure elements exist
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', openFromHash);
+            else openFromHash();
+        })();
+
+        (function(){
+            const params = new URLSearchParams(window.location.search);
+            const msg = document.getElementById('authMessage');
+            if (!msg) return;
+
+            let text = '';
+            let color = '#0f5132';
+
+            if (params.get('registered') === 'true') {
+                text = 'Registration successful. Please login.';
+                color = '#0f5132';
+            } else if (params.get('logout') === 'true') {
+                text = 'You have been logged out.';
+                color = '#0f5132';
+            } else if (params.get('error') === 'invalid') {
+                text = 'Invalid email or password.';
+                color = '#842029';
+            } else if (params.get('error') === 'email_exists') {
+                text = 'Email already exists.';
+                color = '#842029';
+            } else if (params.get('error') === 'username_exists') {
+                text = 'Username already exists.';
+                color = '#842029';
+            } else if (params.get('error') === 'true') {
+                text = 'Something went wrong. Please try again.';
+                color = '#842029';
+            }
+
+            if (text) {
+                msg.textContent = text;
+                msg.style.color = color;
+                msg.style.display = 'block';
+            }
+        })();
+    </script>
+</body>
+</html>

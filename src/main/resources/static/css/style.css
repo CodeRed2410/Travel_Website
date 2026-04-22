@@ -12,7 +12,7 @@ body {
 /* Main page header styles - only apply to index.html */
 body:not(.booking-page) header {
     width: 90%;
-    min-height: 95vh;
+    min-height: 5vh;
     height: auto;
     /* border: 1px solid #000; */
     margin: auto;

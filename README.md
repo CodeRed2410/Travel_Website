@@ -4,6 +4,13 @@ This project is configured to run:
 - Locally with H2 (no setup needed)
 - Online with PostgreSQL (Neon/Supabase/Railway/Render)
 
+## 🌐 Live Demo
+👉 [Open Project]([https://your-link.com](https://travel-website-0mei.onrender.com)
+
+This project is configured to run:
+- Locally with H2 (no setup needed)
+- Online with PostgreSQL (Neon/Supabase/Railway/Render)
+
 ## 1. Run locally
 
 ```bash
